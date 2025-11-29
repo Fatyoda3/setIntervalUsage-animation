@@ -8,15 +8,15 @@ const clearScreen = (screen) => {
       screen[i][j] = ' ';
 };
 
-const plotHorizontal = (screen, texts, currentOffset) => {
-  for (const line in screen) {
-    texts.forEach((currentText) => {
-      for (let i = 0; i < currentText.length; i++) {
-        if ((currentOffset + i) < screen[line].length)
-          screen[line][(currentOffset + i)] = currentText[i];
-      }
-    });
-  }
+const plotHorizontal = (screen, texts, /* line, currentText, */ currentOffset) => {
+  // for (const line in screen) {
+  texts.forEach((currentText, line) => {
+    for (let i = 0; i < currentText.length; i++) {
+      if ((currentOffset + i) < screen[line].length)
+        screen[line][currentOffset + i] = currentText[i];
+    }
+  });
+  // }
 };
 const draw = (screen) => {
   console.log('-'.repeat(screen.length + 2));
@@ -25,19 +25,23 @@ const draw = (screen) => {
 };
 
 const main = () => {
-  const texts = ["HELLO WORLD"];
+  const texts = ["HELLO", "WORLD", "I LIKE TURTLE", 'THIS IS COOL AS HELL'];
   const screen = generateScreen(20);
-  let offset = 0;
 
-  setInterval(() => {
-    if (offset > screen.length)
-      offset = -texts[0].length;
+  texts.forEach((text) => {
+    let offset = 0;
 
-    const truncated = ++offset;
-    clearScreen(screen);
-    plotHorizontal(screen, texts, truncated);
-    draw(screen);
-  }, 300);
+    setInterval(() => {
+      if (offset > screen.length) {
+        offset = -text.length;
+      }
+      clearScreen(screen);
+      const truncated = ++offset;
+      plotHorizontal(screen, texts, truncated);
+      draw(screen);
+    }, 300);
+  });
+
 };
 
 main();
