@@ -8,13 +8,13 @@ const clearScreen = (screen) => {
       screen[i][j] = ' ';
 };
 
-const plotHorizontal = (screen, texts, currentOffset, pool) => {
+const plotHorizontal = (screen, texts, currentOffset) => {
   for (const line in screen) {
     texts.forEach((currentText) => {
       for (let i = 0; i < currentText.length; i++) {
         if ((currentOffset + i) < screen[line].length)
           screen[line][(currentOffset + i)] = currentText[i];
-      
+
       }
 
     });
@@ -27,13 +27,15 @@ const draw = (screen) => {
 };
 
 const main = () => {
-  const texts = ["HELLO WORLD", 'I LIKE TURTLE'];
+  const texts = ["HELLO WORLD"];
   const screen = generateScreen(20);
   let offset = 0;
 
   setInterval(() => {
+    if (offset > screen.length)
+      offset = -texts[0].length;
 
-    const truncated = ++offset % screen.length;
+    const truncated = ++offset;
     clearScreen(screen);
     plotHorizontal(screen, texts, truncated);
     draw(screen);
