@@ -18,51 +18,50 @@ const plotPoints = (screen, x, y, symbol) => screen[Math.floor(x)][Math.floor(y)
 
 const updatePos = ({ x, y, dx, dy }) => ({ x: x + dx, y: y + dy });
 
-const generateBall = (index, x, y, dxRange, dyRange) => {
-  return {
-    count: index,
-    x: Math.floor(x * Math.random()), y: Math.floor(y * Math.random()),
-    symbol: '*',
-    dx: Math.random() * dxRange,
-    dy: Math.random() * dyRange
-  };
-};
+const randomize = (number) => Math.floor(number * Math.random());
+const generateBall = (index, xLimit, yLimit, dxLimit, dyLimit) => ({
+  count: index,
+  x: randomize(xLimit), y: randomize(yLimit),
+  symbol: ['*', '+', 'o'][randomize(3)],
+  dx: Math.random() * dxLimit,
+  dy: Math.random() * dyLimit
+});
+
 const generateBalls = (count, dxRange, dyRange) => {
   const balls = [];
-
   for (let index = 0; index < count; index++)
     balls.push(generateBall(index, index, 10, dxRange, dyRange));
 
   return balls;
 };
+
+const IsInBound = (ball, prop, prop2, screen) => {
+  if (ball[prop] > screen.length - 1) {
+    ball[prop2] = -ball[prop2];
+    if (ball[prop2] > 0) {
+      ball[prop] = screen.length - 1;
+    }
+  }
+};
+const flipVelocity = (ball, position, prop2) => {
+  if (ball[position] <= 1) {
+    ball[position] = 1;
+    ball[prop2] = -ball[prop2];
+  }
+};
 const main = () => {
   const screen = generateScreen(10);
-  const balls = generateBalls(3, 1, 1);
+  const balls = generateBalls(3, 0.5, 0.5);
 
   setInterval(() => {
     clearScreen(screen);
 
     balls.forEach((ball) => {
-      if (ball.x < 1) {
-        ball.x = 1;
-        ball.dx = -ball.dx;
-      }
-      if (ball.y < 1) {
-        ball.y = 1;
-        ball.dy = -ball.dy;
-      }
+      flipVelocity(ball, 'x', 'dx');
+      flipVelocity(ball, 'y', 'dy');
 
-      if (ball.x > screen.length - 2) {
-        ball.dx = -ball.dx;
-        if (ball.dx > 0)
-          ball.x = screen.length - 2;
-      }
-      if (ball.y > screen[0].length - 2) {
-        ball.dy = -ball.dy;
-        if (ball.dx > 0)
-          ball.y = screen[0].length - 2;
-
-      }
+      IsInBound(ball, "x", 'dx', screen);
+      IsInBound(ball, 'y', 'dy', screen);
 
       const { x, y } = updatePos(ball);
 
@@ -71,6 +70,8 @@ const main = () => {
 
 
       plotPoints(screen, (ball.x), (ball.y), ball.symbol);
+
+
 
     });
 
