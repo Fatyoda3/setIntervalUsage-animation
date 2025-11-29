@@ -8,13 +8,15 @@ const clearScreen = (screen) => {
       screen[i][j] = ' ';
 };
 
-const plotHorizontal = (screen, name, currentOffset) => {
+const plotHorizontal = (screen, texts, currentOffset) => {
   for (const line in screen) {
-    for (let i = 0; i < name.length; i++) {
-      if ((currentOffset + i) < screen[0].length)
-        screen[line][(currentOffset + i)] = name[i];
+    texts.forEach((currentText) => {
+      for (let i = 0; i < currentText.length; i++) {
+        if ((currentOffset + i) < screen[0].length)
+          screen[line][(currentOffset + i)] = currentText[i];
+      }
 
-    }
+    });
   }
 };
 const draw = (screen) => {
@@ -24,7 +26,7 @@ const draw = (screen) => {
 };
 
 const main = () => {
-  const name = "HELLO WORLD";
+  const texts = ["HELLO WORLD", 'HELLO WORLD'];
   const screen = generateScreen(20);
   let offset = 0;
 
@@ -32,7 +34,7 @@ const main = () => {
 
     const index = ++offset % screen.length;
     clearScreen(screen);
-    plotHorizontal(screen, name, index);
+    plotHorizontal(screen, texts, index);
     draw(screen);
   }, 400);
 };
