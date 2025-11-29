@@ -14,9 +14,7 @@ const plotHorizontal = (screen, texts, currentOffset) => {
       for (let i = 0; i < currentText.length; i++) {
         if ((currentOffset + i) < screen[line].length)
           screen[line][(currentOffset + i)] = currentText[i];
-
       }
-
     });
   }
 };
