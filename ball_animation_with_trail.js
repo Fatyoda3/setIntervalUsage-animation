@@ -66,7 +66,7 @@ const main = () => {
       ball.x = x;
       ball.y = y;
 
-        
+      
       plotter(screen, (ball.x), (ball.y), ball.symbol);
 
     });
