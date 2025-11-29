@@ -8,12 +8,13 @@ const clearScreen = (screen) => {
       screen[i][j] = ' ';
 };
 
-const plotHorizontal = (screen, texts, currentOffset) => {
+const plotHorizontal = (screen, texts, currentOffset, pool) => {
   for (const line in screen) {
     texts.forEach((currentText) => {
       for (let i = 0; i < currentText.length; i++) {
-        if ((currentOffset + i) < screen[0].length)
+        if ((currentOffset + i) < screen[line].length)
           screen[line][(currentOffset + i)] = currentText[i];
+      
       }
 
     });
@@ -32,11 +33,11 @@ const main = () => {
 
   setInterval(() => {
 
-    const index = ++offset % screen.length;
+    const truncated = ++offset % screen.length;
     clearScreen(screen);
-    plotHorizontal(screen, texts, index);
+    plotHorizontal(screen, texts, truncated);
     draw(screen);
-  }, 400);
+  }, 300);
 };
 
 main();
