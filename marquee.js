@@ -26,7 +26,7 @@ const draw = (screen) => {
 };
 
 const main = () => {
-  const texts = ["HELLO WORLD", 'HELLO WORLD'];
+  const texts = ["HELLO WORLD", 'I LIKE TURTLE'];
   const screen = generateScreen(20);
   let offset = 0;
 
