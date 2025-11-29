@@ -19,7 +19,7 @@ const plotPoints = (screen, x, y, symbol) => screen[Math.floor(x)][Math.floor(y)
 const updatePos = ({ x, y, dx, dy }) => ({ x: x + dx, y: y + dy });
 
 const generateSnake = (dxLimit, dyLimit) => ({
-  x: 4, y: 4,
+  x: 5, y: 5,
   symbol: '0',
   dx: Math.random() * dxLimit,
   dy: Math.random() * dyLimit,
@@ -42,7 +42,7 @@ const flipVelocity = (ball, position, prop2) => {
 };
 const main = () => {
   const screen = generateScreen(10);
-  const snake  = generateSnake(1, 0.5, 0.5);
+  const snake = generateSnake(1, 0.5, 0.5);
 
   setInterval(() => {
     clearScreen(screen);
@@ -61,15 +61,12 @@ const main = () => {
     snake.x = x;
     snake.y = y;
     for (let prev = 0; prev < snake.trail.length; prev++) {
-      const {trailX,trailY} = snake.trail[prev];
+      const { trailX, trailY } = snake.trail[prev];
       plotPoints(screen, trailX, trailY, 'o');
-
     }
-    plotPoints(screen, (snake.x), (snake.y), snake.symbol);
-
-
-  draw(screen);
-}, 300);
+    plotPoints(screen, snake.x, snake.y, snake.symbol);
+    draw(screen);
+  }, 300);
 
 };
 main();

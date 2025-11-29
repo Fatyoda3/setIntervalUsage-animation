@@ -1,5 +1,5 @@
 const generateScreen = (size) => Array.from({ length: size },
-  () => Array.from({ length: size }, () => ' '));
+  () => Array.from({ length: size }, () => '_'));
 
 const clearScreen = (screen) => {
   console.clear();
@@ -11,8 +11,21 @@ const clearScreen = (screen) => {
 const plotHorizontal = (screen, texts, currentOffset) => {
   texts.forEach((currentText, line) => {
     for (let index = 0; index < currentText.length; index++) {
-      if ((currentOffset + index) < screen[line].length)
-        screen[line][currentOffset + index] = currentText[index];
+      const plotPoint = (currentOffset + index);
+      if (plotPoint < screen[line].length && plotPoint >= 0) {
+        screen[line][plotPoint] = currentText[index];
+      }
+    }
+  });
+};
+
+const plotHorizontalRev = (screen, texts, currentOffset) => {
+  texts.forEach((currentText, line) => {
+    for (let index = currentText.length - 1; index > -1; index--) {
+      const plotPoint = (currentOffset + index);
+      if (plotPoint < screen[line].length && plotPoint >= 0) {
+        screen[line][plotPoint] = currentText[index];
+      }
     }
   });
 };
@@ -23,23 +36,34 @@ const draw = (screen) => {
 };
 
 const main = () => {
+
   const texts = ["HELLO", "WORLD", "I LIKE TURTLE", 'THIS IS COOL AS HELL'];
   const screen = generateScreen(20);
 
   texts.forEach((text) => {
-    let offset = 0;
+
+    // setInterval(() => {
+    //   // clearScreen(screen);
+    //   // if (offset > screen.length) {
+    //   //   offset = -text.length;
+    //   // }
+    //   // const truncated = ++offset;
+    //   // plotHorizontal(screen, texts, truncated);
+    // }, 300);
+    let offset = text.length;
 
     setInterval(() => {
-      if (offset > screen.length) {
-        offset = -text.length;
+      clearScreen(screen);
+      if (offset <= 0) {
+        offset = -(offset + text.length);
       }
 
-      clearScreen(screen);
-      const truncated = ++offset;
+      const truncated = --offset;
+      // console.log(truncated);
 
-      plotHorizontal(screen, texts, truncated);
+      plotHorizontalRev(screen, texts, truncated);
       draw(screen);
-    }, 300);
+    }, 400);
   });
 
 };
