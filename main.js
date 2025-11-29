@@ -66,9 +66,7 @@ const main = () => {
       ball.x = x;
       ball.y = y;
 
-      console.log(ball.dx, ball.dy);
-      console.log(ball.x, ball.y);
-
+      
       plotter(screen, (ball.x), (ball.y), ball.symbol);
 
     });
