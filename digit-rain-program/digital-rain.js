@@ -1,4 +1,3 @@
-import { staticData } from "./texts.js";
 import { draw, clearScreen, generateScreen } from "./helper_functions.js";
 
 const plotVerticalLine = (screen, { text, offset }, lineToDrawAt) => {
@@ -10,6 +9,7 @@ const plotVerticalLine = (screen, { text, offset }, lineToDrawAt) => {
     }
   }
 };
+
 const drawVertical = (texts, screen, skipLine) => {
   let separator = skipLine;
   texts.forEach((data) => {
@@ -37,21 +37,23 @@ const generateLine = (len) => ({
 const generateLines = (count) => {
   const lines = [];
   for (let index = 0; index < count; index++) {
-    lines.push(generateLine(randomInt(index, 10)));
+    lines.push(generateLine(randomInt(index, 20)));
   }
   return lines;
 };
 
+const shuffle = (numbers) => numbers.sort(() => Math.random() > 0.5 ? -1 : 1);
+
 const main = () => {
   const screen = generateScreen(20, 10);
 
-  // const texts = staticData();
+
   let refresh = 0;
-  let texts = generateLines(9);
+  const texts = generateLines(20);
   setInterval(() => {
     clearScreen(screen);
     if (refresh === 50) {
-      texts = generateLines(9);
+      shuffle(texts);
       refresh = 0;
     }
     drawVertical(texts, screen, 2);

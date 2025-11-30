@@ -13,6 +13,6 @@ const colorize = (r, g, b, text) =>
 export const draw = (screen) => {
   const border = '-'.repeat(screen[0].length + 2);
   const body = screen.map((lines, index) =>
-    colorize(0, ((index * 30) + 10) % (255), 0, `|${lines.join('')}|`)).join('\n');
+    colorize(0, ((index * 20)) % (255), 0, `|${lines.join('')}|`)).join('\n');
   console.log([border, (body), border].join('\n'));
 };

@@ -43,6 +43,15 @@ const drawVertical = (texts, screen, skipLine) => {
     data.offset += 1;
   });
 };
+const getRandom = (threshold) => Math.floor(Math.random() * threshold);
+const noise = (screen, threshold/* , refresh = false */) => {
+  // const noisePoints = Array.from({ length: screen[0].length }, () => getRandom(threshold));
+  for (let index = 0; index < threshold; index++) {
+    screen[getRandom(screen.length)][getRandom(screen[0].length)] = '`';
+    // screen[getRandom(screen.length)][noisePoints[getRandom(screen[0].length)]] = '`';
+  }
+
+};
 
 const main = () => {
   const screen = generateScreen(64, 20);
@@ -52,9 +61,9 @@ const main = () => {
   setInterval(() => {
     clearScreen(screen);
 
+    noise(screen, 30);
     drawHorizontal(horizontalText, screen, 2);
     drawVertical(verticalText, screen, 4);
-
     draw(screen);
   }, 200);
 };
