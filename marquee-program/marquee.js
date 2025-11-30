@@ -1,5 +1,5 @@
 import { generateScreen, clearScreen, draw } from "./helper_functions.js";
-import { texts } from "./texts.js";
+import { STATIC_DATA } from "./texts.js";
 
 const plotHorizontalLine = (screen, { text, offset }, lineToDrawAt) => {
 
@@ -11,21 +11,51 @@ const plotHorizontalLine = (screen, { text, offset }, lineToDrawAt) => {
     }
   }
 };
+const drawHorizontal = (texts, screen) => {
+  texts.forEach((data, index) => {
+    if (data.offset > screen[index].length - 1) {
+      data.offset = -data.text.length;
+    }
 
+    plotHorizontalLine(screen, data, index);
+    data.offset += 1;
+  });
+};
+const plotVerticalLine = (screen, { text, offset }, lineToDrawAt) => {
+  for (let index = 0; index < text.length; index++) {
+    const plotPoint = offset + index;
+
+    if (plotPoint < screen[lineToDrawAt].length && plotPoint >= 0) {
+      screen[plotPoint][lineToDrawAt] = text[index];
+    }
+  }
+};
+
+const drawVertical = (texts, screen) => {
+  texts.forEach((data, index) => {
+    if (data.offset > screen[index].length - 1) {
+      data.offset = -data.text.length;
+    }
+
+    plotVerticalLine(screen, data, index);
+    data.offset += 1;
+  });
+};
 const main = () => {
-  const screen = generateScreen(10);
-
+  const screen = generateScreen(32, 20);
+  const horizontalText = STATIC_DATA();
+  // const verticalText = [...STATIC_DATA];
   setInterval(() => {
     clearScreen(screen);
+    drawHorizontal(horizontalText, screen);
 
-    texts.forEach((data, index) => {
-      if (data.offset > screen.length - 1) {
-        data.offset = -data.text.length;
-      }
+    // if (verticalTe xt[0].offset > screen[2].length - 1) {
+    //   verticalText[0].offset = -verticalText[0].text.length;
+    // }
 
-      plotHorizontalLine(screen, data, index);
-      data.offset += 1;
-    });
+    // plotVerticalLine(screen, verticalText[0], 2);
+    // verticalText[0].offset += 1;
+
     draw(screen);
   }, 200);
 

@@ -1,4 +1,4 @@
-export const generateScreen = (size) => Array.from({ length: size },
+export const generateScreen = (size, rows) => Array.from({ length: rows },
   () => Array.from({ length: size }, () => '_'));
 
 export const clearScreen = (screen) => {
@@ -9,7 +9,7 @@ export const clearScreen = (screen) => {
 };
 
 export const draw = (screen) => {
-  const border = '-'.repeat(screen.length + 2);
+  const border = '-'.repeat(screen[0].length + 2);
   const body = screen.map(lines => `|${lines.join('')}|`).join('\n');
   console.log([border, body, border].join('\n'));
 };

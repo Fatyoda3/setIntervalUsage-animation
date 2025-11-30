@@ -14,4 +14,4 @@ const cool = {
   text: "THIS IS COOL AS HELL",
   offset: -4
 };
-export const texts = [hello, world, turtle, cool];
+export const STATIC_DATA = () => [{ ...hello }, { ...world }, { ...turtle }, { ...cool }];
