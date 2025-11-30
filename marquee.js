@@ -1,17 +1,6 @@
-const generateScreen = (size) => Array.from({ length: size },
-  () => Array.from({ length: size }, () => '_'));
-const clearScreen = (screen) => {
-  console.clear();
-  for (const i in screen)
-    for (const j in screen[i])
-      screen[i][j] = ' ';
-};
-const draw = (screen) => {
-  const border = '-'.repeat(screen.length + 2);
-  const body = screen.map(lines => `|${lines.join('')}|`).join('\n');
-  console.log([border, body, border].join('\n'));
-};
-const plotHorizontal = (screen, { text, offset }, lineToDrawAt) => {
+import { generateScreen, clearScreen, draw } from "./helper_functions.js";
+
+const plotHorizontalLine = (screen, { text, offset }, lineToDrawAt) => {
 
   for (let index = 0; index < text.length; index++) {
     const plotPoint = offset + index;
@@ -54,7 +43,7 @@ const main = () => {
         data.offset = -data.text.length;
       }
 
-      plotHorizontal(screen, data, index + 2);
+      plotHorizontalLine(screen, data, index);
 
       data.offset++;
     });
