@@ -1,4 +1,5 @@
 import { generateScreen, clearScreen, draw } from "./helper_functions.js";
+import { texts } from "./texts.js";
 
 const plotHorizontalLine = (screen, { text, offset }, lineToDrawAt) => {
 
@@ -12,27 +13,6 @@ const plotHorizontalLine = (screen, { text, offset }, lineToDrawAt) => {
 };
 
 const main = () => {
-
-  const hello = {
-    text: "HELLO",
-    offset: -2,
-  };
-  const world = {
-    text: "WORLD",
-    offset: -4
-  };
-
-  const turtle = {
-    text: "I LIKE TURTLE",
-    offset: -5
-  };
-  const cool = {
-    text: "THIS IS COOL AS HELL",
-    offset: -4
-  };
-
-  const texts = [hello, world, turtle, cool];
-
   const screen = generateScreen(10);
 
   setInterval(() => {
@@ -44,12 +24,10 @@ const main = () => {
       }
 
       plotHorizontalLine(screen, data, index);
-
-      data.offset++;
+      data.offset += 1;
     });
     draw(screen);
-
-  }, 300);
+  }, 200);
 
 
 };

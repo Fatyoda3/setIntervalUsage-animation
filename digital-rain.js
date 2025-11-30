@@ -32,6 +32,7 @@ const main = () => {
     if (offset > screen.length) {
       offset = -offset;
     }
+    
     clearScreen(screen);
     plotVertical(screen, ['HELLO'], offset++);
     draw(screen);
