@@ -11,6 +11,7 @@ const plotHorizontalLine = (screen, { text, offset }, lineToDrawAt) => {
     }
   }
 };
+
 const drawHorizontal = (texts, screen) => {
   texts.forEach((data, index) => {
     if (data.offset > screen[index].length - 1) {
@@ -24,8 +25,9 @@ const drawHorizontal = (texts, screen) => {
 const plotVerticalLine = (screen, { text, offset }, lineToDrawAt) => {
   for (let index = 0; index < text.length; index++) {
     const plotPoint = offset + index;
+    console.log('screen at plotPoint', plotPoint, screen[plotPoint] === undefined);
 
-    if (plotPoint < screen[lineToDrawAt].length && plotPoint >= 0) {
+    if (plotPoint < screen.length - 1 && plotPoint >= 0) {
       screen[plotPoint][lineToDrawAt] = text[index];
     }
   }
@@ -43,18 +45,20 @@ const drawVertical = (texts, screen) => {
 };
 const main = () => {
   const screen = generateScreen(32, 20);
-  const horizontalText = STATIC_DATA();
-  // const verticalText = [...STATIC_DATA];
+  // const horizontalText = STATIC_DATA();
+  const verticalText = STATIC_DATA();
+  const hello = { text: 'name', offset: -1 };
   setInterval(() => {
     clearScreen(screen);
-    drawHorizontal(horizontalText, screen);
+    // drawHorizontal(horizontalText, screen);
 
-    // if (verticalTe xt[0].offset > screen[2].length - 1) {
-    //   verticalText[0].offset = -verticalText[0].text.length;
-    // }
+    if (hello.offset > screen.length - 1) {
+      hello.offset = -hello.text.length;
+    }
+    // console.log(hello.offset, 'offset value ');
 
-    // plotVerticalLine(screen, verticalText[0], 2);
-    // verticalText[0].offset += 1;
+    plotVerticalLine(screen, hello, 0);
+    hello.offset += 1;
 
     draw(screen);
   }, 200);
