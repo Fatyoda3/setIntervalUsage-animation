@@ -55,8 +55,8 @@ const noise = (screen, threshold/* , refresh = false */) => {
 
 const main = () => {
   const screen = generateScreen(64, 20);
-  const horizontalText = staticData();
-  const verticalText = staticData();
+  const horizontalText = staticData(5);
+  const verticalText = staticData(4);
 
   setInterval(() => {
     clearScreen(screen);
