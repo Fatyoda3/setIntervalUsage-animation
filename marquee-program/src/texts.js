@@ -1,4 +1,4 @@
-import { quotes } from "./data_bank.js";
+import { quotes } from "./static/data_bank.js";
 const getRandom = (quotes) => quotes[Math.floor(Math.random() * quotes.length)];
 const generateOffset = () => Math.floor((Math.random() * 20) - 10 + 1);
 
